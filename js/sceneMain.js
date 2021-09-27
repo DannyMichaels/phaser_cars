@@ -15,13 +15,14 @@ class SceneMain extends Phaser.Scene {
 
   create() {
     // define our objects
-    let road = new Road({ scene: this }); // telling it that this is the scene (sceneMain)
+    this.road = new Road({ scene: this }); // telling it that this is the scene (sceneMain)
     road.x = game.config.width / 2;
     road.makeLines();
   }
 
   update() {
     // constant running loop
+    this.road.moveLines();
   }
 
   // we can also add our own custom functions

@@ -17,6 +17,7 @@ class Road extends Phaser.GameObjects.Container {
 
     this.lineGroup = this.scene.add.group(); //  don't put lineGroup as child of container, it will cause errors
   }
+
   makeLines() {
     const AMOUNT_OF_LINES = 100; // amount of lines to have on the scene
     this.VERTICAL_SPACE = this.displayHeight / 10; // vertical margin between each item
@@ -29,5 +30,13 @@ class Road extends Phaser.GameObjects.Container {
       ); // x ,y , key
       this.lineGroup.add(line);
     }
+  }
+
+  moveLines() {
+    this.lineGroup.children.iterate(
+      function (child) {
+        child.y += this.VERTICAL_SPACE;
+      }.bind(this)
+    );
   }
 }
