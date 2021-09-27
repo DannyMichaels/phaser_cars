@@ -22,12 +22,12 @@ class Road extends Phaser.GameObjects.Container {
 
     // add car to the road.
     this.car = this.scene.add.sprite(
-      -this.displayWidth / 4, // put it on left side with negative num
+      this.displayWidth / 4, // put it on right lane with positive num
       game.config.height * 0.9,
       'cars'
     ); // location of car in x of road , location of car in y of road , key of sprite
 
-    Align.scaleToGameWidth(this.car, 0.15);
+    Align.scaleToGameWidth(this.car, 0.1);
 
     this.add(this.car);
   }
