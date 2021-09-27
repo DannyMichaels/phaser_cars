@@ -19,12 +19,19 @@ class Road extends Phaser.GameObjects.Container {
     //
     //
     this.count = 0; // count how many times we're moving the lines
+    // add car
+    this.car = this.scene.add.sprite(
+      this.displayWidth / 4,
+      game.config.height * 0.9,
+      'cars'
+    ); // x , y , key
+    this.add(this.car);
   }
 
   makeLines() {
     this.vSpace = this.displayHeight / 10; // vertical space between each item
 
-    const AMOUNT_OF_LINES = 100; // amount of lines to have on the scene
+    const AMOUNT_OF_LINES = 20; // amount of lines to have on the scene
 
     for (let yAxis = 0; yAxis < AMOUNT_OF_LINES; yAxis++) {
       let line = this.scene.add.image(this.x, yAxis * this.vSpace, 'line'); // x ,y , key
@@ -36,7 +43,7 @@ class Road extends Phaser.GameObjects.Container {
   moveLines() {
     this.lineGroup.children.iterate(
       function (child) {
-        child.y += this.vSpace;
+        child.y += this.vSpace / 20; // decrease the speed by a factor of 20
       }.bind(this)
     );
 

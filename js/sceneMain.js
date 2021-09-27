@@ -6,7 +6,7 @@ class SceneMain extends Phaser.Scene {
   preload() {
     // load our images or sounds
     this.load.image('road', 'images/road.jpg');
-    this.load.spritesheet('cars', 'images/cars.jpg', {
+    this.load.spritesheet('cars', 'images/cars.png', {
       frameWidth: 60,
       frameHeight: 126,
     });
