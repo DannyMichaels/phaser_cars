@@ -10,13 +10,14 @@ class SceneMain extends Phaser.Scene {
       frameWidth: 60,
       frameHeight: 126,
     });
-    this.load.image('line', 'images/line.jpg');
+    this.load.image('line', 'images/line.png');
   }
 
   create() {
     // define our objects
     let road = new Road({ scene: this }); // telling it that this is the scene (sceneMain)
     road.x = game.config.width / 2;
+    road.makeLines();
   }
 
   update() {
