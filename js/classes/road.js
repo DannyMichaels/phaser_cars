@@ -21,8 +21,12 @@ class Road extends Phaser.GameObjects.Container {
     const AMOUNT_OF_LINES = 100; // amount of lines to have on the scene
     this.VERTICAL_SPACE = this.displayHeight / 10; // vertical margin between each item
 
-    for (let i = 0; i < AMOUNT_OF_LINES; i++) {
-      let line = this.scene.add.image(this.x, this.VERTICAL_SPACE * i, 'line'); // x ,y , key
+    for (let yAxis = 0; yAxis < AMOUNT_OF_LINES; yAxis++) {
+      let line = this.scene.add.image(
+        this.x,
+        yAxis * this.VERTICAL_SPACE,
+        'line'
+      ); // x ,y , key
       this.lineGroup.add(line);
     }
   }
