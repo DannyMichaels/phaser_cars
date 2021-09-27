@@ -16,18 +16,19 @@ class Road extends Phaser.GameObjects.Container {
     console.log(this);
 
     this.lineGroup = this.scene.add.group(); //  don't put lineGroup as child of container, it will cause errors
+    //
+    //
+    this.count = 0; // count how many times we're moving the lines
   }
 
   makeLines() {
+    this.vSpace = this.displayHeight / 10; // vertical space between each item
+
     const AMOUNT_OF_LINES = 100; // amount of lines to have on the scene
-    this.VERTICAL_SPACE = this.displayHeight / 10; // vertical margin between each item
 
     for (let yAxis = 0; yAxis < AMOUNT_OF_LINES; yAxis++) {
-      let line = this.scene.add.image(
-        this.x,
-        yAxis * this.VERTICAL_SPACE,
-        'line'
-      ); // x ,y , key
+      let line = this.scene.add.image(this.x, yAxis * this.vSpace, 'line'); // x ,y , key
+      line.originalY = line.y;
       this.lineGroup.add(line);
     }
   }
@@ -35,8 +36,20 @@ class Road extends Phaser.GameObjects.Container {
   moveLines() {
     this.lineGroup.children.iterate(
       function (child) {
-        child.y += this.VERTICAL_SPACE;
+        child.y += this.vSpace;
       }.bind(this)
     );
+
+    this.count++;
+    // every 20 times
+    if (this.count == 20) {
+      // reset
+      this.count = 0;
+      this.lineGroup.children.iterate(
+        function (child) {
+          child.y = child.originalY;
+        }.bind(this)
+      );
+    }
   }
 }
