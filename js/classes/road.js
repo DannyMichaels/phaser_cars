@@ -132,6 +132,18 @@ class Road extends Phaser.GameObjects.Container {
 
   moveObject() {
     this.currentObject.y += this.vSpace / this.currentObject.speed;
+
+    let carIsCollidingWithObject = Collision.checkCollide(
+      this.car,
+      this.currentObject
+    );
+
+    if (carIsCollidingWithObject) {
+      this.car.alpha = 0.5;
+    } else {
+      this.car.alpha = 1;
+    }
+
     if (this.currentObject.y > game.config.height) {
       // reset it, give it a fake "respawn" feel
       this.currentObject.destroy();
