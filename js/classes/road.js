@@ -41,10 +41,19 @@ class Road extends Phaser.GameObjects.Container {
   }
 
   addObject() {
-    this.object = this.scene.add.sprite(this.leftLaneLocation, 0, 'pcar1'); // x ,y , key
+    let objs = ['pcar1', 'pcar2', 'cone', 'barrier']; // obstacles
+    let randomIndex = Math.floor(Math.random() * objs.length);
+    let randomObjectKey = objs[randomIndex];
+
+    this.object = this.scene.add.sprite(
+      this.leftLaneLocation,
+      0,
+      randomObjectKey
+    ); // x ,y , key
+
+    // randomly move it to right lane on if number is < 50
     let lane = Math.random() * 100;
 
-    // randomly move it to right lane on "next spawn"
     if (lane < 50) {
       this.object.x = this.rightLaneLocation;
     }
