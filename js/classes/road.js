@@ -23,13 +23,33 @@ class Road extends Phaser.GameObjects.Container {
     // add car to the road.
     this.car = this.scene.add.sprite(
       this.displayWidth / 4, // put it on right lane with positive num
-      game.config.height * 0.9,
-      'cars'
+      game.config.height * 0.9, // y
+      'cars' // sprite key
     ); // location of car in x of road , location of car in y of road , key of sprite
 
     Align.scaleToGameWidth(this.car, 0.1);
 
     this.add(this.car);
+    //
+    // add click
+    this.background.setInteractive();
+    this.background.on('pointerdown', this.changeLanes, this); // pointerdown means click
+  }
+
+  changeLanes() {
+    // if car.x axis is positive (greater than 0), then we know it's on the right side of the road
+    let carIsRightSide = this.car.x > 0;
+
+    if (carIsRightSide) {
+      // if on right side of road  move it to left side
+      const leftSide = -this.displayWidth / 4;
+      this.car.x = leftSide;
+      return;
+    }
+
+    // else if on the left side of the road, move it to right side.
+    let rightSide = this.displayWidth / 4;
+    this.car.x = rightSide;
   }
 
   makeLines() {
@@ -45,6 +65,8 @@ class Road extends Phaser.GameObjects.Container {
   }
 
   moveLines() {
+    const AMOUNT_OF_LINES = 20; // amount of lines to have on the scene
+
     this.lineGroup.children.iterate(
       function (child) {
         child.y += this.vSpace / 20; // decrease the speed by a factor of 20
@@ -53,7 +75,7 @@ class Road extends Phaser.GameObjects.Container {
 
     this.count++;
     // every 20 times
-    if (this.count == 20) {
+    if (this.count == AMOUNT_OF_LINES) {
       // reset
       this.count = 0;
       this.lineGroup.children.iterate(
