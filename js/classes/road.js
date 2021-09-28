@@ -41,25 +41,35 @@ class Road extends Phaser.GameObjects.Container {
   }
 
   addObject() {
-    let objs = ['pcar1', 'pcar2', 'cone', 'barrier']; // obstacles
+    // cars should be faster, cones should be near stationary
+    // lower num is faster speed
+    let objs = [
+      { key: 'pcar1', speed: 10 },
+      { key: 'pcar2', speed: 10 },
+      { key: 'cone', speed: 20 },
+      { key: 'barrier', speed: 20 },
+    ]; // obstacles
     let randomIndex = Math.floor(Math.random() * objs.length);
-    let randomObjectKey = objs[randomIndex];
+    let randomObject = objs[randomIndex];
+    const { key: randomObjectKey, speed: randomObjectSpeed } = randomObject;
 
-    this.object = this.scene.add.sprite(
+    this.currentObject = this.scene.add.sprite(
       this.leftLaneLocation,
       0,
       randomObjectKey
     ); // x ,y , key
 
+    this.currentObject.speed = randomObjectSpeed;
+
     // randomly move it to right lane on if number is < 50
     let lane = Math.random() * 100;
 
     if (lane < 50) {
-      this.object.x = this.rightLaneLocation;
+      this.currentObject.x = this.rightLaneLocation;
     }
 
-    Align.scaleToGameWidth(this.object, 0.1);
-    this.add(this.object);
+    Align.scaleToGameWidth(this.currentObject, 0.1);
+    this.add(this.currentObject);
   }
 
   changeLanes() {
@@ -111,10 +121,10 @@ class Road extends Phaser.GameObjects.Container {
   }
 
   moveObject() {
-    this.object.y += this.vSpace / 20;
-    if (this.object.y > game.config.height) {
+    this.currentObject.y += this.vSpace / this.currentObject.speed;
+    if (this.currentObject.y > game.config.height) {
       // reset it, give it a fake "respawn" feel
-      this.object.destroy();
+      this.currentObject.destroy();
       this.addObject();
     }
   }
