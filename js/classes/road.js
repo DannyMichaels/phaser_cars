@@ -44,14 +44,23 @@ class Road extends Phaser.GameObjects.Container {
     // cars should be faster, cones should be near stationary
     // lower num is faster speed
     let objs = [
-      { key: 'pcar1', speed: 10 },
-      { key: 'pcar2', speed: 10 },
-      { key: 'cone', speed: 20 },
-      { key: 'barrier', speed: 20 },
+      { key: 'pcar1', speed: 10, scale: 10 }, // make cars bigger than cones with scale
+      { key: 'pcar2', speed: 10, scale: 10 },
+      { key: 'cone', speed: 20, scale: 5 },
+      { key: 'barrier', speed: 20, scale: 8 },
     ]; // obstacles
+
+    // get a random object and assign it to this.currentObject
+
     let randomIndex = Math.floor(Math.random() * objs.length);
     let randomObject = objs[randomIndex];
-    const { key: randomObjectKey, speed: randomObjectSpeed } = randomObject;
+    let {
+      key: randomObjectKey,
+      speed: randomObjectSpeed,
+      scale,
+    } = randomObject;
+
+    let randomObjectScale = scale / 100; // divide it by 100 to get correct number because we used whole numbers
 
     this.currentObject = this.scene.add.sprite(
       this.leftLaneLocation,
@@ -68,7 +77,8 @@ class Road extends Phaser.GameObjects.Container {
       this.currentObject.x = this.rightLaneLocation;
     }
 
-    Align.scaleToGameWidth(this.currentObject, 0.1);
+    Align.scaleToGameWidth(this.currentObject, randomObjectScale);
+
     this.add(this.currentObject);
   }
 
