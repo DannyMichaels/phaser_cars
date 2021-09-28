@@ -37,10 +37,20 @@ class Road extends Phaser.GameObjects.Container {
     // add click
     this.background.setInteractive();
     this.background.on('pointerdown', this.changeLanes, this); // pointerdown means click
+    this.addObject();
   }
 
   addObject() {
-    this.object = this.scene.add.sprite(this.leftLaneLocation, 0, 'pcar'); // x ,y , key
+    this.object = this.scene.add.sprite(this.leftLaneLocation, 0, 'pcar1'); // x ,y , key
+    let lane = Math.random() * 100;
+
+    // randomly move it to right lane on "next spawn"
+    if (lane < 50) {
+      this.object.x = this.rightLaneLocation;
+    }
+
+    Align.scaleToGameWidth(this.object, 0.1);
+    this.add(this.object);
   }
 
   changeLanes() {
@@ -88,6 +98,15 @@ class Road extends Phaser.GameObjects.Container {
           child.y = child.originalY;
         }.bind(this)
       );
+    }
+  }
+
+  moveObject() {
+    this.object.y += this.vSpace / 20;
+    if (this.object.y > game.config.height) {
+      // reset it, give it a fake "respawn" feel
+      this.object.destroy();
+      this.addObject();
     }
   }
 }
