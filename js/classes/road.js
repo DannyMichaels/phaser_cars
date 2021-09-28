@@ -20,9 +20,12 @@ class Road extends Phaser.GameObjects.Container {
     //
     this.count = 0; // count how many times we're moving the lines
 
+    this.rightLaneLocation = this.displayWidth / 4;
+    this.leftLaneLocation = -this.displayWidth / 4;
+
     // add car to the road.
     this.car = this.scene.add.sprite(
-      this.displayWidth / 4, // put it on right lane with positive num
+      this.rightLaneLocation, // put it on right lane with positive num
       game.config.height * 0.9, // y
       'cars' // sprite key
     ); // location of car in x of road , location of car in y of road , key of sprite
@@ -36,20 +39,22 @@ class Road extends Phaser.GameObjects.Container {
     this.background.on('pointerdown', this.changeLanes, this); // pointerdown means click
   }
 
+  addObject() {
+    this.object = this.scene.add.sprite(this.leftLaneLocation, 0, 'pcar'); // x ,y , key
+  }
+
   changeLanes() {
     // if car.x axis is positive (greater than 0), then we know it's on the right side of the road
     let carIsRightSide = this.car.x > 0;
 
     if (carIsRightSide) {
       // if on right side of road  move it to left side
-      const leftSide = -this.displayWidth / 4;
-      this.car.x = leftSide;
+      this.car.x = this.leftLaneLocation;
       return;
     }
 
     // else if on the left side of the road, move it to right side.
-    let rightSide = this.displayWidth / 4;
-    this.car.x = rightSide;
+    this.car.x = this.rightLaneLocation;
   }
 
   makeLines() {

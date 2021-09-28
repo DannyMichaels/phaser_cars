@@ -6,11 +6,19 @@ class SceneMain extends Phaser.Scene {
   preload() {
     // load our images or sounds
     this.load.image('road', 'images/road.jpg');
+    this.load.image('line', 'images/line.png');
+
+    // player: car
     this.load.spritesheet('cars', 'images/cars.png', {
       frameWidth: 60,
       frameHeight: 126,
     });
-    this.load.image('line', 'images/line.png');
+
+    // obstacles
+    this.load.image('pcar1', 'images/pcar1.png');
+    this.load.image('pcar2', 'images/pcar2.png');
+    this.load.image('cone', 'images/cone.png');
+    this.load.image('barrier', 'images/barrier.png');
   }
 
   create() {
