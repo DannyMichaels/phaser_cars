@@ -29,13 +29,17 @@ class SceneMain extends Phaser.Scene {
 
     // score box
     this.scoreBox = new ScoreBox({ scene: this });
-    this.scoreBox.x = game.config.width - 50;
-    this.scoreBox.y = 50; // top right corner
+    // this.scoreBox.x = game.config.width - 50;
+    // this.scoreBox.y = 50; // top right corner
 
     // road
     this.road = new Road({ scene: this }); // telling it that this is the scene (sceneMain)
     Align.centerHorizontally(this.road);
     this.road.makeLines();
+
+    this.alignGrid = new AlignGrid({ scene: this, rows: 5, cols: 5 });
+    this.alignGrid.showNumbers();
+    this.alignGrid.placeAtIndex(4, this.scoreBox); // place scorebox at top right
   }
 
   update() {
