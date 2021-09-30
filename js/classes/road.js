@@ -145,8 +145,13 @@ class Road extends Phaser.GameObjects.Container {
       this.car.alpha = 1;
     }
 
-    if (this.currentObject.y > game.config.height) {
-      // reset it, give it a fake "respawn" feel
+    // if object went out of screen successfully
+    const objectPassedScreen = this.currentObject.y > game.config.height;
+
+    if (objectPassedScreen) {
+      // increment points
+      emitter.emit(G.UP_POINTS, 1);
+      // destroy it and create a new object, "respawn".
       this.currentObject.destroy();
       this.addObject();
     }

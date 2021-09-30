@@ -8,6 +8,7 @@ class Controller {
     model.score = score;
   }
 
+  // increment
   upPoints(points) {
     // change points by value
     let score = model.score;
