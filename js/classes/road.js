@@ -138,6 +138,7 @@ class Road extends Phaser.GameObjects.Container {
       this.currentObject
     );
 
+    // change car opacity if collides with object
     if (carIsCollidingWithObject) {
       this.car.alpha = 0.5;
     } else {

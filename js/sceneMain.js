@@ -23,8 +23,18 @@ class SceneMain extends Phaser.Scene {
 
   create() {
     // define our objects
+    // set up
+    emitter = new Phaser.Events.EventEmitter();
+    controller = new Controller();
+
+    // score box
+    this.scoreBox = new ScoreBox({ scene: this });
+    this.scoreBox.x = game.config.width - 50;
+    this.scoreBox.y = 50; // top right corner
+
+    // road
     this.road = new Road({ scene: this }); // telling it that this is the scene (sceneMain)
-    this.road.x = game.config.width / 2;
+    Align.centerHorizontally(this.road);
     this.road.makeLines();
   }
 
