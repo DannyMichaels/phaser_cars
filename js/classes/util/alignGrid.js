@@ -85,6 +85,7 @@ class AlignGrid {
     this.show();
 
     for (let row = 0; row < this.config.rows; row++) {
+       // actually cell, we're inside the cells of each row. not column
       for (let column = 0; column < this.config.cols; column++) {
         let numText = this.scene.add.text(0, 0, count, { color: '#ff0000' }); // x,y, text, css
         numText.setOrigin(0.5, 0.5); // place at center of cell
