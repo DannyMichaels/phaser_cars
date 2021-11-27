@@ -133,6 +133,7 @@ class Road extends Phaser.GameObjects.Container {
   moveObject() {
     this.currentObject.y += this.vSpace / this.currentObject.speed;
 
+    // Collision.checkCollide from utils file in this project.
     let carIsCollidingWithObject = Collision.checkCollide(
       this.car,
       this.currentObject
